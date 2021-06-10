@@ -26,7 +26,7 @@ namespace Hompus.VideoInputDevices
         /// Lists the video input devices connected to the system.
         /// </summary>
         /// <returns>A dictionary with the id and name of the device.</returns>
-        public IReadOnlyDictionary<int, string> ListVideoInputDevice()
+        public IReadOnlyDictionary<int, FullName> ListVideoInputDevice()
         {
             var videoInputDeviceClass = new Guid("{860BB310-5D01-11D0-BD3B-00A0C911CE86}");
 
@@ -37,7 +37,7 @@ namespace Hompus.VideoInputDevices
             }
 
             var moniker = new IMoniker[1];
-            var list = new Dictionary<int, string>();
+            var list = new Dictionary<int, FullName>();
 
             while (true)
             {
@@ -48,7 +48,7 @@ namespace Hompus.VideoInputDevices
                 }
 
                 var device = new VideoInputDevice(moniker[0]);
-                list.Add(list.Count, device.Name);
+                list.Add(list.Count, device.Data);
 
                 // Release COM object
                 Marshal.ReleaseComObject(moniker[0]);
